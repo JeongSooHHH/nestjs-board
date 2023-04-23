@@ -31,12 +31,15 @@ export class BoardsService {
 
   updateBoardStatus(id: string, status: BoardStatus): Board {
     const board = this.getBoardById(id);
-    board.status = status;
+    if (board) {
+      board.status = status;
+    }
     return board;
   }
 
   deleteBoard(id: string): void {
     // return 값을 안줄꺼기 때문에 void 타입 줬음.
-    this.boards = this.boards.filter((board) => board.id !== id);
+    const found = this.getBoardById(id);
+    this.boards = this.boards.filter((board) => board.id !== found.id);
   }
 }
